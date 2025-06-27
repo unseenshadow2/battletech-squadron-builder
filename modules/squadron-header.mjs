@@ -3,8 +3,8 @@ import { AssignSquadronDataDefaults } from "./data-types.mjs";
 import { TemplatedHtmlElement } from "./templated-html-element.mjs";
 
 await TemplatedHtmlElement.AddTemplate(
-  "FighterRow",
-  "../templates/fighter-row.html"
+  "SquadronHeader",
+  "../templates/squadron-header.html"
 );
 
 export class SquadronHeader extends TemplatedHtmlElement {
@@ -12,7 +12,7 @@ export class SquadronHeader extends TemplatedHtmlElement {
 
   constructor() {
     // Always call super first in constructor
-    super("FighterRow");
+    super("SquadronHeader");
   }
 
   connectedCallback() {

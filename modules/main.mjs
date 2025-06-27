@@ -1,5 +1,4 @@
-import "./fighter-row.mjs";
-import "./squadron-header.mjs";
+import "./squadron-page.mjs";
 import { AssignSquadronDataDefaults } from "./data-types.mjs";
 
 let squadronData = AssignSquadronDataDefaults(undefined);
