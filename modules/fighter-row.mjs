@@ -3,10 +3,21 @@ import {
   AssignFighterBayDefaults,
 } from "./data-types.mjs";
 
-export class FighterRow extends HTMLElement {
+import { TemplatedHtmlElement } from "./templated-html-element.mjs";
+
+await TemplatedHtmlElement.AddTemplate(
+  "FighterRow",
+  "../templates/fighter-row.html"
+);
+
+export class FighterRow extends TemplatedHtmlElement {
   constructor() {
     // Always call super first in constructor
-    super();
+    super("FighterRow");
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
   }
 }
 

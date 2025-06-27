@@ -1,12 +1,19 @@
-import {
-  AssignFighterDataDefaults,
-  AssignFighterBayDefaults,
-} from "./data-types.mjs";
+import { AssignSquadronDataDefaults } from "./data-types.mjs";
+import { TemplatedHtmlElement } from "./templated-html-element.mjs";
 
-export class SquadronPage extends HTMLElement {
+await TemplatedHtmlElement.AddTemplate(
+  "SquadronPage",
+  "../templates/squadron-page.html"
+);
+
+export class SquadronPage extends TemplatedHtmlElement {
   constructor() {
     // Always call super first in constructor
-    super();
+    super("SquadronPage");
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
   }
 }
 

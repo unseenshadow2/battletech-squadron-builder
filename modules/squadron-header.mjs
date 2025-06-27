@@ -1,11 +1,22 @@
 import { AssignSquadronDataDefaults } from "./data-types.mjs";
 
-export class SquadronHeader extends HTMLElement {
+import { TemplatedHtmlElement } from "./templated-html-element.mjs";
+
+await TemplatedHtmlElement.AddTemplate(
+  "FighterRow",
+  "../templates/fighter-row.html"
+);
+
+export class SquadronHeader extends TemplatedHtmlElement {
   squadron = AssignSquadronDataDefaults(undefined);
 
   constructor() {
     // Always call super first in constructor
-    super();
+    super("FighterRow");
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
   }
 }
 
