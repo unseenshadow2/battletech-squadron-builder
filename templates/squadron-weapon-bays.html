@@ -1,0 +1,101 @@
+<link rel="stylesheet" href="styles/main.css" type="text/css" />
+<link rel="stylesheet" href="styles/squadron-weapon-bays.css" type="text/css" />
+
+<div class="table-container">
+  <table id="bay-table" class="weapon-bay-table">
+    <thead>
+      <tr>
+        <th>Weapon Bay</th>
+        <th>Loc.</th>
+        <th>
+          Starting #/<br />
+          Current #
+        </th>
+        <th>
+          AV<br />
+          Each
+        </th>
+        <th>
+          Heat Each /<br />
+          Current Total
+        </th>
+        <th>
+          Range<br />
+          Bracket
+        </th>
+      </tr>
+    </thead>
+    <tbody id="bay-table-body"></tbody>
+  </table>
+</div>
+
+<template id="bay-row">
+  <tr>
+    <td>
+      <input
+        id="weapon-bay"
+        class="underline-input"
+        type="text"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+        disabled="true"
+      />
+    </td>
+    <td>
+      <input
+        id="location"
+        class="underline-input"
+        type="text"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+        disabled="true"
+      />
+    </td>
+    <td>
+      <input
+        id="weapon-count"
+        class="underline-input"
+        type="text"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+        disabled="true"
+      />
+    </td>
+    <td>
+      <input
+        id="attack-value"
+        class="underline-input"
+        type="text"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+        disabled="true"
+      />
+    </td>
+    <td>
+      <input
+        id="heat"
+        class="underline-input"
+        type="text"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+        disabled="true"
+      />
+    </td>
+    <td>
+      <input
+        id="range-bracket"
+        class="underline-input"
+        type="text"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+        disabled="true"
+      />
+    </td>
+  </tr>
+</template>

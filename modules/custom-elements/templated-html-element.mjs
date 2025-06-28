@@ -21,7 +21,10 @@ export class TemplatedHtmlElement extends HTMLElement {
     }
   }
 
-  /** @type {(string)} The HTML template to be used by the TemplatedHtmlElement */
+  /**
+   * The HTML template to be used by the TemplatedHtmlElement
+   * @type {string}
+   */
   template;
 
   /**

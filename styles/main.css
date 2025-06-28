@@ -1,0 +1,42 @@
+:root {
+  --number-input-width: 2em;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/*
+ The !important is here because this style is a brute force method of removing margins
+*/
+.no-margin {
+  margin: 0 !important;
+}
+
+.underline-input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid black;
+}
+
+.underline-input:disabled {
+  background-color: white;
+}
+
+.underline-input,
+.margin-label {
+  margin-right: 0.5em;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input.underline-input::-webkit-outer-spin-button,
+input.underline-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input.underline-input[type="number"] {
+  -moz-appearance: textfield;
+}

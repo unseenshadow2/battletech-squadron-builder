@@ -1,14 +1,26 @@
+/**
+ * @typedef TechBase
+ * @type {"Inner Sphere" | "Clan" | "Mixed"}
+ */
 export const TechBase = Object.freeze({
   InnerSphere: "Inner Sphere",
   Clan: "Clan",
   Mixed: "Mixed",
 });
 
+/**
+ * @typedef HeatSinkType
+ * @type {"Single" | "Double"}
+ */
 export const HeatSinkType = Object.freeze({
   Single: "Single",
   Double: "Double",
 });
 
+/**
+ * @typedef BayLocation
+ * @type {"Nose" | "Wing" | "Aft" | "Bomb"}
+ */
 export const BayLocations = Object.freeze({
   Nose: "Nose",
   Wing: "Wing",
@@ -16,6 +28,10 @@ export const BayLocations = Object.freeze({
   Bomb: "Bomb",
 });
 
+/**
+ * @typedef WeaponRange
+ * @type {"Short" | "Medium" | "Long" | "Extreme"}
+ */
 export const WeaponRanges = Object.freeze({
   Short: "Short",
   Medium: "Medium",
@@ -23,12 +39,48 @@ export const WeaponRanges = Object.freeze({
   Extreme: "Extreme",
 });
 
+/**
+ * @typedef Squadron
+ * @type {object}
+ * @property {string} name
+ * @property {TechBase} techBase
+ * @property {Fighter[]} fighters
+ */
+
+/**
+ * @type {Readonly<Squadron>}
+ */
 const DefaultSquadron = Object.freeze({
   name: "",
   techBase: TechBase.InnerSphere,
   fighters: [],
 });
 
+/**
+ * @typedef Fighter
+ * @type {object}
+ * @property {string} name
+ * @property {number} safeThrust
+ * @property {number} maxThrust
+ * @property {number} totalArmor
+ * @property {number} structuralIntegrity
+ * @property {number} heatSinks
+ * @property {HeatSinkType} heatSinkType
+ * @property {number} fuel
+ * @property {number} gunnery
+ * @property {number} piloting
+ * @property {number} engineCriticals
+ * @property {number} avionicsCriticals
+ * @property {number} sensorsCriticals
+ * @property {number} fireControlSystemCriticals
+ * @property {number} lifeSupportCriticals
+ * @property {number} pilotCriticals
+ * @property {WeaponBay[]} bays
+ */
+
+/**
+ * @type {Readonly<Fighter>}
+ */
 const DefaultFighter = Object.freeze({
   name: "",
   safeThrust: 0,
@@ -49,6 +101,18 @@ const DefaultFighter = Object.freeze({
   bays: [],
 });
 
+/**
+ * @typedef WeaponBay
+ * @type {object}
+ * @property {string} name
+ * @property {BayLocation} location
+ * @property {number} heat
+ * @property {number} damage
+ */
+
+/**
+ * @type {Readonly<WeaponBay>}
+ */
 const DefaultBay = Object.freeze({
   name: "",
   location: BayLocations.Nose,
@@ -57,10 +121,37 @@ const DefaultBay = Object.freeze({
 });
 
 /**
- * Creates a SquadronData object (null passed in) or populates an existing SquadronData object with
+ * @typedef SquadronBay
+ * @type {object}
+ * @property {string} name
+ * @property {BayLocation} location
+ * @property {number} startingWeaponCount
+ * @property {number} currentWeaponCount
+ * @property {number} attackValue
+ * @property {number} heatTotal
+ * @property {number} heatPer
+ * @property {WeaponRange} rangeBracket
+ */
+
+/**
+ * @type {Readonly<SquadronBay>}
+ */
+const DefaultSquadronBay = Object.freeze({
+  name: "None",
+  location: BayLocations.Nose,
+  startingWeaponCount: 0,
+  currentWeaponCount: 0,
+  attackValue: 0,
+  heatTotal: 0,
+  heatPer: 0,
+  rangeBracket: WeaponRanges.Short,
+});
+
+/**
+ * Creates a Squadron object (null passed in) or populates an existing SquadronData object with
  * any missing values
- * @param {SquadronData} data
- * @returns A SquadronData object
+ * @param {?Squadron} data
+ * @returns {!Squadron} A Squadron object
  */
 export function AssignSquadronDataDefaults(data) {
   return {
@@ -78,10 +169,10 @@ export function AssignSquadronDataDefaults(data) {
 }
 
 /**
- * Creates a FighterData object (null passed in) or populates an existing FighterData object with
+ * Creates a Fighter object (null passed in) or populates an existing Fighter object with
  * any missing values
- * @param {FighterData} data
- * @returns A FighterData object
+ * @param {?Fighter} data
+ * @returns {!Fighter} A Fighter object
  */
 export function AssignFighterDataDefaults(data) {
   let fighter = {
@@ -101,14 +192,27 @@ export function AssignFighterDataDefaults(data) {
 }
 
 /**
- * Creates a BayData object (null passed in) or populates an existing BayData object with
+ * Creates a WeaponBay object (null passed in) or populates an existing WeaponBay object with
  * any missing values
- * @param {BayData} data
- * @returns A BayData object
+ * @param {?WeaponBay} data
+ * @returns {!WeaponBay} A WeaponBay object
  */
 export function AssignFighterBayDefaults(data) {
   return {
     ...DefaultBay,
+    ...data,
+  };
+}
+
+/**
+ * Creates a SquadronBay object (null passed in) or populates an existing SquadronBay object with
+ * any missing values
+ * @param {?SquadronBay} data
+ * @returns {!SquadronBay}
+ */
+export function AssignSquadronBayDefaults(data) {
+  return {
+    ...DefaultSquadronBay,
     ...data,
   };
 }

@@ -1,2 +1,121 @@
 <link rel="stylesheet" href="styles/main.css" type="text/css" />
-<link rel="stylesheet" href="styles/squadron-head.css" type="text/css" />
+<link rel="stylesheet" href="styles/squadron-header.css" type="text/css" />
+
+<div class="squadron-header-container">
+  <h1 class="squadron-data-header">Squadron Data</h1>
+  <div class="row">
+    <span class="squadron-data-label">Name:</span>
+    <input
+      id="name-input"
+      class="underline-input"
+      type="text"
+      autocomplete="off"
+      data-lpignore="true"
+      data-form-type="other"
+    />
+    <span class="squadron-data-label">Gunnery Skill:</span>
+    <input
+      id="gunnery-input"
+      class="underline-input"
+      type="number"
+      disabled="true"
+    />
+    <span class="squadron-data-label">Piloting Skill:</span>
+    <input
+      id="piloting-input"
+      class="underline-input"
+      type="number"
+      disabled="true"
+    />
+    <span class="squadron-data-label">Safe Thrust:</span>
+    <input
+      id="safe-thrust-input"
+      class="underline-input"
+      type="number"
+      disabled="true"
+    />
+    <span class="squadron-data-label">Max Thrust:</span>
+    <input
+      id="max-thrust-input"
+      class="underline-input"
+      type="number"
+      disabled="true"
+    />
+  </div>
+  <div class="row squadron-bays-row">
+    <ap-squadron-bays id="bays-1" showRightBorder></ap-squadron-bays>
+    <ap-squadron-bays id="bays-2" showRightBorder></ap-squadron-bays>
+    <ap-squadron-bays id="bays-3"></ap-squadron-bays>
+  </div>
+  <div class="row">
+    <span class="squadron-data-label tech-base-label">Tech Base:</span>
+    <div class="tech-base-radio-container">
+      <label class="tech-base-radio-label" for="is-tech-base-radio">
+        Inner Sphere
+      </label>
+      <input
+        id="is-tech-base-radio"
+        class="tech-base-radio"
+        type="radio"
+        name="tech-base"
+        value="Inner Sphere"
+        checked
+      />
+    </div>
+    <div class="tech-base-radio-container">
+      <label class="tech-base-radio-label" for="clan-tech-base-radio">
+        Clan
+      </label>
+      <input
+        id="clan-tech-base-radio"
+        class="tech-base-radio"
+        type="radio"
+        name="tech-base"
+        value="Clan"
+      />
+    </div>
+    <div class="tech-base-radio-container">
+      <label class="tech-base-radio-label" for="mixed-tech-base-radio">
+        Mixed
+      </label>
+      <input
+        id="mixed-tech-base-radio"
+        class="tech-base-radio"
+        type="radio"
+        name="tech-base"
+        value="Mixed"
+      />
+    </div>
+
+    <span class="squadron-data-label">Total Heat Capacity (Current):</span>
+    <input
+      id="heat-capacity-total-input"
+      class="underline-input"
+      type="number"
+      disabled="true"
+    />
+    <span class="squadron-data-label">&#40;</span>
+    <input
+      id="heat-capacity-current"
+      class="underline-input no-margin"
+      type="number"
+      disabled="true"
+    />
+    <span class="squadron-data-label margin-label">&#41;</span>
+
+    <span class="squadron-data-label">Total Fuel:</span>
+    <input
+      id="total-fuel-input"
+      class="underline-input"
+      type="number"
+      disabled="true"
+    />
+    <span class="squadron-data-label">SI:</span>
+    <input
+      id="si-input"
+      class="underline-input"
+      type="number"
+      disabled="true"
+    />
+  </div>
+</div>

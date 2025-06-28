@@ -1,0 +1,80 @@
+.squadron-header-container {
+  height: 100%;
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 25px;
+  padding: 1em;
+  position: relative;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* Don't grow or shrink labels */
+.row > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+#name-input {
+  flex-grow: 5;
+  flex-shrink: 0;
+  width: 10rem;
+  min-width: 10rem;
+}
+
+#gunnery-input,
+#piloting-input,
+#safe-thrust-input,
+#max-thrust-input,
+#heat-capacity-total-input,
+#heat-capacity-current,
+#total-fuel-input,
+#si-input {
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: var(--number-input-width);
+  min-width: var(--number-input-width);
+}
+
+.squadron-data-header {
+  margin: 0;
+}
+
+.squadron-data-label {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.tech-base-radio-container {
+  display: inline-block;
+  padding-right: 0.5rem;
+}
+
+.tech-base-label {
+  padding-right: 0.5rem;
+}
+
+.tech-base-radio {
+  margin-left: 1px;
+}
+
+.squadron-bays-row {
+  width: 100%;
+  min-height: 50px;
+  margin: 0.5em 0;
+  justify-content: center;
+}
+
+.squadron-bays-row > * {
+  display: inline-block;
+}
+
+ap-squadron-bays {
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 0.1em;
+}
