@@ -30,13 +30,14 @@ export const BayLocations = Object.freeze({
 
 /**
  * @typedef WeaponRange
- * @type {"Short" | "Medium" | "Long" | "Extreme"}
+ * @type {"Short" | "Medium" | "Long" | "Extreme" | "Bomb"}
  */
 export const WeaponRanges = Object.freeze({
   Short: "Short",
   Medium: "Medium",
   Long: "Long",
   Extreme: "Extreme",
+  Bomb: "Bomb",
 });
 
 /**
@@ -63,7 +64,9 @@ const DefaultSquadron = Object.freeze({
  * @property {number} safeThrust
  * @property {number} maxThrust
  * @property {number} totalArmor
+ * @property {number} armorDamage
  * @property {number} structuralIntegrity
+ * @property {number} structuralIntegrityDamage
  * @property {number} heatSinks
  * @property {HeatSinkType} heatSinkType
  * @property {number} fuel
@@ -76,6 +79,7 @@ const DefaultSquadron = Object.freeze({
  * @property {number} lifeSupportCriticals
  * @property {number} pilotCriticals
  * @property {WeaponBay[]} bays
+ * @property {BombBays} bombs
  */
 
 /**
@@ -86,7 +90,9 @@ const DefaultFighter = Object.freeze({
   safeThrust: 0,
   maxThrust: 0,
   totalArmor: 0,
+  armorDamage: 0,
   structuralIntegrity: 0,
+  structuralIntegrityDamage: 0,
   heatSinks: 0,
   heatSinkType: HeatSinkType.Single,
   fuel: 0,
@@ -99,6 +105,7 @@ const DefaultFighter = Object.freeze({
   lifeSupportCriticals: 0,
   pilotCriticals: 0,
   bays: [],
+  bombs: {},
 });
 
 /**
@@ -108,6 +115,8 @@ const DefaultFighter = Object.freeze({
  * @property {BayLocation} location
  * @property {number} heat
  * @property {number} damage
+ * @property {number} count
+ * @property {WeaponRange} range
  */
 
 /**
@@ -118,6 +127,64 @@ const DefaultBay = Object.freeze({
   location: BayLocations.Nose,
   heat: 0,
   damage: 0,
+  count: 0,
+  range: WeaponRanges.Short,
+});
+
+/**
+ * @typedef BombBays
+ * @type {object}
+ * @property {WeaponBay} heBombs
+ * @property {WeaponBay} laserGuidedBombs
+ * @property {WeaponBay} clusterBombs
+ * @property {WeaponBay} rocketPods
+ * @property {WeaponBay} tags
+ */
+
+/**
+ * @type {Readonly<BombBays>}
+ */
+const DefaultBombBays = Object.freeze({
+  heBombs: Object.freeze({
+    name: "HE",
+    location: BayLocations.Bomb,
+    heat: 0,
+    damage: 10,
+    count: 0,
+    range: WeaponRanges.Bomb,
+  }),
+  laserGuidedBombs: Object.freeze({
+    name: "Laser Guided",
+    location: BayLocations.Bomb,
+    heat: 0,
+    damage: 10,
+    count: 0,
+    range: WeaponRanges.Bomb,
+  }),
+  clusterBombs: Object.freeze({
+    name: "Cluster",
+    location: BayLocations.Bomb,
+    heat: 0,
+    damage: 5,
+    count: 0,
+    range: WeaponRanges.Bomb,
+  }),
+  rocketPods: Object.freeze({
+    name: "RL 10",
+    location: BayLocations.Bomb,
+    heat: 0,
+    damage: 6,
+    count: 0,
+    range: WeaponRanges.Medium,
+  }),
+  tags: Object.freeze({
+    name: "Tag",
+    location: BayLocations.Bomb,
+    heat: 0,
+    damage: 0,
+    count: 0,
+    range: WeaponRanges.Bomb,
+  }),
 });
 
 /**
@@ -188,6 +255,8 @@ export function AssignFighterDataDefaults(data) {
     fighter.bays.push(AssignFighterBayDefaults(undefined));
   }
 
+  fighter.bombs = AssignFighterBombBayDefaults(fighter.bombs);
+
   return fighter;
 }
 
@@ -202,6 +271,25 @@ export function AssignFighterBayDefaults(data) {
     ...DefaultBay,
     ...data,
   };
+}
+
+/**
+ * Creates a BombBays array or populates an existing BombBays array with
+ * any missing values
+ * @param {?BombBays[]} data
+ * @returns {!BombBays[]} A BombBays array
+ */
+export function AssignFighterBombBayDefaults(data) {
+  let bombBays = { ...data };
+
+  for (const bombName in DefaultBombBays) {
+    bombBays[bombName] = AssignFighterBayDefaults({
+      ...DefaultBombBays[bombName],
+      ...bombBays[bombName],
+    });
+  }
+
+  return bombBays;
 }
 
 /**

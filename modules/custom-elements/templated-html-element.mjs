@@ -2,7 +2,7 @@ export class TemplatedHtmlElement extends HTMLElement {
   /**
    * Stored as {"templatePath":"HTML code string"}
    */
-  static CachedTemplates = {};
+  static #CachedTemplates = {};
 
   /**
    * Adds and loads a template to the TemplatedHtmlElement's CachedTemplates.
@@ -17,7 +17,7 @@ export class TemplatedHtmlElement extends HTMLElement {
     );
 
     if (templateCode) {
-      TemplatedHtmlElement.CachedTemplates[templateKey] = templateCode;
+      TemplatedHtmlElement.#CachedTemplates[templateKey] = templateCode;
     }
   }
 
@@ -37,7 +37,7 @@ export class TemplatedHtmlElement extends HTMLElement {
 
     this.attachShadow({ mode: "open" });
 
-    let templateCode = TemplatedHtmlElement.CachedTemplates[templateKey];
+    let templateCode = TemplatedHtmlElement.#CachedTemplates[templateKey];
 
     if (templateCode) {
       this.template = templateCode;

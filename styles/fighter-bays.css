@@ -1,0 +1,32 @@
+th,
+tr,
+input {
+  text-align: center;
+}
+
+#weapon,
+#bomb {
+  width: 7em;
+}
+
+#location {
+  width: 5em;
+}
+
+#range-bracket {
+  width: 6.5em;
+}
+
+#weapon-count,
+#heat,
+#attack-value {
+  width: 3em;
+}
+
+.weapon-bay-table * {
+  font-size: 6.5pt;
+}
+
+.hidden {
+  display: none;
+}

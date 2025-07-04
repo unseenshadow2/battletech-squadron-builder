@@ -1,0 +1,181 @@
+.fighter-container,
+.fighter-data-2,
+.fighter-data-container,
+ap-fighter-bays,
+.fighter-armor-container,
+.fighter-si-container {
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 0.25em;
+}
+
+.fighter-container {
+  display: flex;
+}
+
+.fighter-container > *:not(:last-child) {
+  margin-right: 0.25em;
+}
+
+.fighter-data-1,
+.fighter-data-2 {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+ap-fighter-bays {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.fighter-name-container {
+  margin-bottom: 0.25em;
+}
+
+.fighter-name-label {
+  font-weight: bold;
+}
+
+.fighter-name-label,
+.fighter-data-label,
+input {
+  font-size: 9pt;
+  display: inline-block;
+}
+
+.fighter-data-label {
+  width: 4em;
+}
+
+.fighter-data-label:not(:first-child) {
+  padding-left: 0.5em;
+}
+
+.fighter-data-label.fighter-data-gear-label,
+.fighter-data-label.fighter-data-thrust-label,
+.fighter-data-label.fighter-data-fuel-label {
+  width: 3em;
+}
+
+.fighter-data-label.fighter-data-life-support-label {
+  width: 6em;
+}
+
+.fighter-data-label.fighter-data-total-armor-label,
+.fighter-data-label.fighter-data-fatal-threshold-label {
+  width: 6.5em;
+}
+
+.fighter-data-label.fighter-data-heat-sinks-label {
+  width: 4.5em;
+}
+
+.underline-input {
+  font-size: 9pt;
+}
+
+.fighter-data-row {
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+
+.fighter-data-row > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.fighter-data-row > .fighter-data-label.thrust-label {
+  flex-grow: 1;
+  text-align: center;
+  font-weight: bold;
+}
+
+.fighter-data-row.si-container {
+  justify-content: center;
+}
+
+.fighter-data-row.si-container > .fighter-data-label {
+  width: 3em;
+  text-align: center;
+}
+
+.fighter-data-row.si-container > .underline-input {
+  margin-right: 0;
+}
+
+.fighter-data-label.no-size {
+  width: fit-content;
+}
+
+.crit-mark {
+  display: inline-flex;
+  font-size: 7pt;
+  border: 1px solid black;
+  border-radius: 3px;
+
+  align-items: center;
+  justify-content: center;
+
+  height: 11pt;
+  width: 11pt;
+}
+
+.crit-mark:not(:last-child) {
+  margin-right: 0.25em;
+}
+
+.crit-mark > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.crit-mark[crit] {
+  background-color: gray;
+}
+
+.damage-pip {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+
+  border: 1px black solid;
+  border-radius: 3px;
+  margin-right: 0.25em;
+}
+
+.damage-pip[damaged] {
+  background-color: gray;
+}
+
+.fighter-armor-container {
+  width: 8em;
+  display: inline-block;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.fighter-si-container {
+  width: 3.5em;
+  display: inline-block;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.fighter-pips-container {
+  display: flex;
+  align-items: stretch;
+}
+
+#fighter-armor-pips,
+#fighter-si-pips {
+}
+
+/* Text Input Widths */
+#name-input {
+  width: 9em;
+}
+
+#fuel-input {
+  width: 3em;
+}

@@ -1,0 +1,120 @@
+<link rel="stylesheet" href="styles/main.css" type="text/css" />
+<link rel="stylesheet" href="styles/fighter-bays.css" type="text/css" />
+
+<div class="table-container">
+  <table id="bay-table" class="weapon-bay-table">
+    <thead>
+      <tr id="weapon-headers">
+        <th>Weapon</th>
+        <th>Count</th>
+        <th>Loc.</th>
+        <th>AV</th>
+        <th>Heat</th>
+        <th>
+          Range<br />
+          Bracket
+        </th>
+      </tr>
+      <tr id="bomb-headers" class="hidden">
+        <th>Bomb</th>
+        <th>Count</th>
+        <th>AV</th>
+        <th>
+          Range<br />
+          Bracket
+        </th>
+      </tr>
+    </thead>
+    <tbody id="bay-table-body"></tbody>
+  </table>
+</div>
+
+<template id="weapon-row">
+  <tr class="weapon-bay-row">
+    <td>
+      <input
+        id="weapon"
+        class="underline-input"
+        type="text"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+      />
+    </td>
+    <td>
+      <input id="count" class="underline-input" type="number" />
+    </td>
+    <td>
+      <select id="location" class="underline-input"></select>
+    </td>
+    <td>
+      <input
+        id="attack-value"
+        class="underline-input"
+        type="number"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+      />
+    </td>
+    <td>
+      <input
+        id="heat"
+        class="underline-input"
+        type="number"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+      />
+    </td>
+    <td>
+      <select id="range-bracket" class="underline-input"></select>
+    </td>
+  </tr>
+</template>
+
+<template id="bomb-row">
+  <tr>
+    <td>
+      <input
+        id="bomb"
+        class="underline-input"
+        type="text"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+        disabled="true"
+      />
+    </td>
+    <td>
+      <input
+        id="count"
+        class="underline-input"
+        type="number"
+        autocomplete="off"
+      />
+    </td>
+    <td>
+      <input
+        id="attack-value"
+        class="underline-input"
+        type="number"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+        disabled="true"
+      />
+    </td>
+    <td>
+      <input
+        id="range-bracket"
+        class="underline-input"
+        type="text"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+        disabled="true"
+      />
+    </td>
+  </tr>
+</template>

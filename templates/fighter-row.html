@@ -1,2 +1,123 @@
 <link rel="stylesheet" href="styles/main.css" type="text/css" />
 <link rel="stylesheet" href="styles/fighter-row.css" type="text/css" />
+
+<div class="fighter-container">
+  <div class="fighter-data-1">
+    <div class="fighter-name-container">
+      <span class="fighter-name-label" id="fighter-number">Fighter #1:</span>
+      <input
+        id="name-input"
+        class="underline-input"
+        type="text"
+        autocomplete="off"
+        data-lpignore="true"
+        data-form-type="other"
+      />
+    </div>
+    <div class="fighter-data-container">
+      <div class="fighter-data-row">
+        <span class="fighter-data-label">Engine</span>
+        <span id="engine-crit-2" class="crit-mark">2</span>
+        <span id="engine-crit-4" class="crit-mark">4</span>
+        <span id="engine-crit-d" class="crit-mark">D</span>
+        <span class="fighter-data-label fighter-data-gear-label">Gear</span>
+        <span id="gear-crit" class="crit-mark">+5</span>
+      </div>
+      <div class="fighter-data-row">
+        <span class="fighter-data-label">Avionics</span>
+        <span id="avionics-crit-1" class="crit-mark">+1</span>
+        <span id="avionics-crit-2" class="crit-mark">+2</span>
+        <span id="avionics-crit-5" class="crit-mark">+5</span>
+        <span class="fighter-data-label thrust-label">Thrust</span>
+      </div>
+      <div class="fighter-data-row">
+        <span class="fighter-data-label">Sensors</span>
+        <span id="sensors-crit-1" class="crit-mark">+1</span>
+        <span id="sensors-crit-2" class="crit-mark">+2</span>
+        <span id="sensors-crit-5" class="crit-mark">+5</span>
+        <span class="fighter-data-label fighter-data-thrust-label">Safe:</span>
+        <input id="safe-thrust-input" class="underline-input" type="number" />
+      </div>
+      <div class="fighter-data-row">
+        <span class="fighter-data-label">FCS</span>
+        <span id="fcs-crit-2" class="crit-mark">+2</span>
+        <span id="fcs-crit-4" class="crit-mark">+4</span>
+        <span id="fcs-crit-d" class="crit-mark">D</span>
+        <span class="fighter-data-label fighter-data-thrust-label">Max:</span>
+        <input id="max-thrust-input" class="underline-input" type="number" />
+      </div>
+      <div class="fighter-data-row">
+        <span class="fighter-data-label fighter-data-life-support-label">
+          Life Support
+        </span>
+        <span id="life-support-crit" class="crit-mark">+2</span>
+      </div>
+    </div>
+  </div>
+  <div class="fighter-data-2">
+    <div class="fighter-pips-container">
+      <div class="fighter-armor-container">
+        <div class="fighter-data-row">
+          <span class="fighter-data-label fighter-data-total-armor-label">
+            Total Armor
+          </span>
+          <input id="total-armor-input" class="underline-input" type="number" />
+        </div>
+        <div class="fighter-data-row">
+          <span class="fighter-data-label fighter-data-fatal-threshold-label">
+            Fatal Threshold
+          </span>
+          <input
+            id="fatal-threshold-input"
+            class="underline-input"
+            type="number"
+            disabled
+          />
+        </div>
+        <div id="fighter-armor-pips"></div>
+      </div>
+      <div class="fighter-si-container">
+        <div class="fighter-data-row si-container">
+          <span class="fighter-data-label">SI</span>
+        </div>
+        <div class="fighter-data-row si-container">
+          <input id="si-input" class="underline-input" type="number" />
+        </div>
+        <div id="fighter-si-pips"></div>
+      </div>
+    </div>
+    <div class="fighter-data-row">
+      <span class="fighter-data-label fighter-data-heat-sinks-label">
+        Heat Sinks
+      </span>
+      <input id="heat-sinks-input" class="underline-input" type="number" />
+      <select id="heat-sinks-select" class="borderless" value="Single">
+        <option value="Single">Single</option>
+        <option value="Double">Double</option>
+      </select>
+    </div>
+    <div class="fighter-data-row">
+      <span class="fighter-data-label">Pilot</span>
+      <span id="pilot-crit-1" class="crit-mark">1</span>
+      <span id="pilot-crit-2" class="crit-mark">2</span>
+      <span id="pilot-crit-3" class="crit-mark">3</span>
+      <span id="pilot-crit-4" class="crit-mark">4</span>
+      <span id="pilot-crit-5" class="crit-mark">5</span>
+      <span id="pilot-crit-d" class="crit-mark">D</span>
+    </div>
+    <div class="fighter-data-row">
+      <span class="fighter-data-label fighter-data-fuel-label">G/P</span>
+      <input id="gunnery-input" class="underline-input" type="number" />
+      /
+      <input id="piloting-input" class="underline-input" type="number" />
+      <span class="fighter-data-label fighter-data-fuel-label">Fuel</span>
+      <input id="fuel-input" class="underline-input" type="number" />
+    </div>
+  </div>
+  <ap-fighter-bays id="fighter-bays-1" mode="weapons"></ap-fighter-bays>
+  <ap-fighter-bays id="fighter-bays-2" mode="bombs"></ap-fighter-bays>
+</div>
+
+<template id="damage-pip-template">
+  <div class="damage-pip"></div>
+</template>

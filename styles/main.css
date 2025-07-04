@@ -39,4 +39,10 @@ input.underline-input::-webkit-inner-spin-button {
 /* Firefox */
 input.underline-input[type="number"] {
   -moz-appearance: textfield;
+  width: var(--number-input-width);
+  text-align: center;
+}
+
+select.borderless {
+  border: none;
 }
