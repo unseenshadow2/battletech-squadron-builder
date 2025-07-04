@@ -3,7 +3,7 @@ import { TemplatedHtmlElement } from "./templated-html-element.mjs";
 
 await TemplatedHtmlElement.AddTemplate(
   "SquadronPage",
-  "../../templates/squadron-page.html"
+  "templates/squadron-page.html"
 );
 
 export class SquadronPage extends TemplatedHtmlElement {

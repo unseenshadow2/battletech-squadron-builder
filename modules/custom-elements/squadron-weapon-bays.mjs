@@ -12,7 +12,7 @@ import { TemplatedHtmlElement } from "./templated-html-element.mjs";
 
 await TemplatedHtmlElement.AddTemplate(
   "SquadronBaysElement",
-  "../../templates/squadron-weapon-bays.html"
+  "templates/squadron-weapon-bays.html"
 );
 
 export class SquadronBaysElement extends TemplatedHtmlElement {

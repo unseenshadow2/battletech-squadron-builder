@@ -8,7 +8,7 @@ import { TemplatedHtmlElement } from "./templated-html-element.mjs";
 
 await TemplatedHtmlElement.AddTemplate(
   "SquadronHeader",
-  "../../templates/squadron-header.html"
+  "templates/squadron-header.html"
 );
 
 export class SquadronHeader extends TemplatedHtmlElement {

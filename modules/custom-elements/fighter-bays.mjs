@@ -17,7 +17,7 @@ import { TemplatedHtmlElement } from "./templated-html-element.mjs";
 
 await TemplatedHtmlElement.AddTemplate(
   "FighterBaysElement",
-  "../../templates/fighter-bays.html"
+  "templates/fighter-bays.html"
 );
 
 export class FighterBaysElement extends TemplatedHtmlElement {
