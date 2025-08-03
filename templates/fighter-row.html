@@ -44,13 +44,21 @@
         <span id="fcs-crit-4" class="crit-mark">+4</span>
         <span id="fcs-crit-d" class="crit-mark">D</span>
         <span class="fighter-data-label fighter-data-thrust-label">Max:</span>
-        <input id="max-thrust-input" class="underline-input" type="number" />
+        <input
+          id="max-thrust-input"
+          class="underline-input"
+          type="number"
+          disabled="true"
+        />
       </div>
       <div class="fighter-data-row">
         <span class="fighter-data-label fighter-data-life-support-label">
           Life Support
         </span>
         <span id="life-support-crit" class="crit-mark">+2</span>
+        <span class="fighter-button-container">
+          <button id="copy-paste-button">Copy</button>
+        </span>
       </div>
     </div>
   </div>
@@ -114,8 +122,8 @@
       <input id="fuel-input" class="underline-input" type="number" />
     </div>
   </div>
-  <ap-fighter-bays id="fighter-bays-1" mode="weapons"></ap-fighter-bays>
-  <ap-fighter-bays id="fighter-bays-2" mode="bombs"></ap-fighter-bays>
+  <ap-fighter-bays id="weapon-bays" mode="weapons"></ap-fighter-bays>
+  <ap-fighter-bays id="bomb-bays" mode="bombs"></ap-fighter-bays>
 </div>
 
 <template id="damage-pip-template">

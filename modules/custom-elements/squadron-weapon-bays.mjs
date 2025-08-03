@@ -8,6 +8,7 @@ import { TemplatedHtmlElement } from "./templated-html-element.mjs";
 
 /**
  * @typedef {import('../data-types.mjs').SquadronBay} SquadronBay
+ * @typedef {import('../data-types.mjs').Squadron} Squadron
  */
 
 await TemplatedHtmlElement.AddTemplate(
@@ -66,6 +67,15 @@ export class SquadronBaysElement extends TemplatedHtmlElement {
 
     this.showRightBorder = this.hasAttribute("showRightBorder");
 
+    this.Update();
+  }
+
+  /**
+   * Resets the data bindings to the squadron
+   * @param {SquadronBay[]?} bays
+   */
+  ResetDataBindings(bays) {
+    this.bays = bays ?? [AssignSquadronBayDefaults(undefined)];
     this.Update();
   }
 

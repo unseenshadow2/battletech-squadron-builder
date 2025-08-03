@@ -244,6 +244,7 @@ export function AssignSquadronDataDefaults(data) {
 export function AssignFighterDataDefaults(data) {
   let fighter = {
     ...DefaultFighter,
+    bays: [],
     ...data,
   };
 
@@ -276,8 +277,8 @@ export function AssignFighterBayDefaults(data) {
 /**
  * Creates a BombBays array or populates an existing BombBays array with
  * any missing values
- * @param {?BombBays[]} data
- * @returns {!BombBays[]} A BombBays array
+ * @param {?BombBays} data
+ * @returns {!BombBays} A BombBays object
  */
 export function AssignFighterBombBayDefaults(data) {
   let bombBays = { ...data };

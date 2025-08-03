@@ -9,10 +9,8 @@ import { TemplatedHtmlElement } from "./templated-html-element.mjs";
 
 /**
  * @typedef {import('../data-types.mjs').WeaponBay} WeaponBay
- */
-
-/**
  * @typedef {import('../data-types.mjs').BombBays} BombBays
+ * @typedef {import('../data-types.mjs').Fighter} Fighter
  */
 
 await TemplatedHtmlElement.AddTemplate(
@@ -103,17 +101,12 @@ export class FighterBaysElement extends TemplatedHtmlElement {
 
       // Populate the table
       if (this.bays.length == 0) {
-        let row = this.GenerateWeaponRow(
-          AssignFighterBayDefaults(undefined),
-          0
-        );
+        this.bays.push(AssignFighterBayDefaults(undefined));
+        let row = this.GenerateWeaponRow(this.bays[0], 0);
         this.bayTableBody.appendChild(row);
       } else {
         for (let i = 0; i < this.bays.length; i++) {
-          let row = this.GenerateWeaponRow(
-            AssignFighterBayDefaults(this.bays[i]),
-            i
-          );
+          let row = this.GenerateWeaponRow(this.bays[i], i);
           this.bayTableBody.appendChild(row);
         }
       }
@@ -147,10 +140,21 @@ export class FighterBaysElement extends TemplatedHtmlElement {
 
       for (let bombKey in this.bombs) {
         const bomb = this.bombs[bombKey];
-        let row = this.GenerateBombRow(AssignFighterBayDefaults(bomb), 0);
+        let row = this.GenerateBombRow(bomb, 0);
         this.bayTableBody.appendChild(row);
       }
     }
+  }
+
+  /**
+   * Resets the data bindings to the squadron
+   * @param {Fighter} fighterIn
+   */
+  ResetDataBindings(fighterIn) {
+    this.bays = fighterIn?.bays ?? this.bays;
+    this.bombs = fighterIn?.bombs ?? this.bombs;
+
+    this.Update();
   }
 
   /**
@@ -171,9 +175,9 @@ export class FighterBaysElement extends TemplatedHtmlElement {
     weaponName.value = weapon.name;
     count.valueAsNumber = weapon.count;
     weaponLocation.value = weapon.location;
-    attackValue.value = weapon.attackValue;
-    heat.value = weapon.heat;
-    rangeBracket.value = weapon.rangeBracket;
+    attackValue.valueAsNumber = weapon.damage;
+    heat.valueAsNumber = weapon.heat;
+    rangeBracket.value = weapon.range;
 
     // Populate dropdowns
     for (const locKey in BayLocations) {
@@ -195,6 +199,37 @@ export class FighterBaysElement extends TemplatedHtmlElement {
         rangeBracket.appendChild(option);
       }
     }
+
+    // Setup events
+    weaponName.addEventListener("change", () => {
+      weapon.name = weaponName.value;
+      this.DispatchWeaponsChangeEvent();
+    });
+
+    count.addEventListener("change", () => {
+      weapon.count = count.valueAsNumber;
+      this.DispatchWeaponsChangeEvent();
+    });
+
+    weaponLocation.addEventListener("change", () => {
+      weapon.location = weaponLocation.value;
+      this.DispatchWeaponsChangeEvent();
+    });
+
+    attackValue.addEventListener("change", () => {
+      weapon.damage = attackValue.valueAsNumber;
+      this.DispatchWeaponsChangeEvent();
+    });
+
+    heat.addEventListener("change", () => {
+      weapon.heat = heat.valueAsNumber;
+      this.DispatchWeaponsChangeEvent();
+    });
+
+    rangeBracket.addEventListener("change", () => {
+      weapon.range = rangeBracket.value;
+      this.DispatchWeaponsChangeEvent();
+    });
 
     return row;
   }
@@ -219,9 +254,30 @@ export class FighterBaysElement extends TemplatedHtmlElement {
 
     count.addEventListener("change", () => {
       bomb.count = count.valueAsNumber;
+      this.DispatchBombsChangeEvent();
     });
 
     return row;
+  }
+
+  /**
+   * Dispatch the WeaponsChange event with the current weapons bays
+   */
+  DispatchWeaponsChangeEvent() {
+    const weaponsUpdateEvent = new CustomEvent("WeaponsChange", {
+      detail: this.bays,
+    });
+    this.dispatchEvent(weaponsUpdateEvent);
+  }
+
+  /**
+   * Dispatch the BombsChange event with the current bomb bays
+   */
+  DispatchBombsChangeEvent() {
+    const bombsUpdateEvent = new CustomEvent("BombsChange", {
+      detail: this.bombs,
+    });
+    this.dispatchEvent(bombsUpdateEvent);
   }
 }
 

@@ -104,6 +104,12 @@ input {
   margin-right: 0;
 }
 
+.fighter-button-container {
+  flex-grow: 1;
+  flex-shrink: 0;
+  text-align: right;
+}
+
 .fighter-data-label.no-size {
   width: fit-content;
 }
@@ -178,4 +184,8 @@ input {
 
 #fuel-input {
   width: 3em;
+}
+
+#copy-paste-button {
+  font-size: 9pt;
 }

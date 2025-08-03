@@ -11,6 +11,17 @@
     <script src="modules/main.mjs" type="module"></script>
   </head>
   <body>
+    <button onclick="SaveFighter()">Save</button>
+    <button onclick="LoadFighter()">Load</button>
+    <input
+      type="file"
+      id="squadron-load"
+      accept=".squadron, application/json"
+      style="display: none"
+    />
+    <br />
+    <br />
+
     <ap-squadron-page></ap-squadron-page>
   </body>
 </html>

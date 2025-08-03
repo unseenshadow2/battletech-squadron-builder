@@ -5,11 +5,12 @@ import {
 
 import { TemplatedHtmlElement } from "./templated-html-element.mjs";
 
+import "./fighter-bays.mjs";
+
 /**
  * @typedef {import('../data-types.mjs').Fighter} Fighter
- */
-/**
  * @typedef {import('../data-types.mjs').WeaponBay} WeaponBay
+ * @typedef {import('./fighter-bays.mjs').FighterBaysElement} FighterBaysElement
  */
 
 await TemplatedHtmlElement.AddTemplate(
@@ -17,7 +18,7 @@ await TemplatedHtmlElement.AddTemplate(
   "templates/fighter-row.html"
 );
 
-export class FighterRow extends TemplatedHtmlElement {
+export class FighterRowElement extends TemplatedHtmlElement {
   /**
    * @type {string}
    */
@@ -49,6 +50,23 @@ export class FighterRow extends TemplatedHtmlElement {
    */
   siPipsContainer;
 
+  /**
+   * @type {FighterBaysElement}
+   */
+  weaponBayElement;
+
+  /**
+   * @type {FighterBaysElement}
+   */
+  bombBayElement;
+
+  /**
+   * @type {HTMLButtonElement}
+   */
+  copyPasteButton;
+
+  isCopyMode = true;
+
   constructor() {
     // Always call super first in constructor
     super("FighterRow");
@@ -56,14 +74,115 @@ export class FighterRow extends TemplatedHtmlElement {
 
   connectedCallback() {
     super.connectedCallback();
+
+    this.weaponBayElement = this.shadowRoot.getElementById("weapon-bays");
+    this.bombBayElement = this.shadowRoot.getElementById("bomb-bays");
+
+    this.weaponBayElement.addEventListener("WeaponsChange", () => {
+      this.fighter.bays = this.weaponBayElement.bays;
+      this.DispatchChangeEvent();
+    });
+
+    this.bombBayElement.addEventListener("BombsChange", () => {
+      this.fighter.bombs = this.bombBayElement.bombs;
+      this.DispatchChangeEvent();
+    });
+
+    this.Update();
+
+    // Setup copy/paste
+    this.copyPasteButton = this.shadowRoot.getElementById("copy-paste-button");
+    this.copyPasteButton.addEventListener("click", () => {
+      if (this.isCopyMode) {
+        this.DispatchCopyEvent();
+      } else {
+        this.DispatchPasteEvent();
+      }
+    });
+  }
+
+  /**
+   * Resets the data bindings to the squadron
+   * @param {Fighter} fighterIn
+   */
+  ResetDataBindings(fighterIn) {
+    this.fighter = fighterIn ?? this.fighter;
+
+    // We reset the bindings of our weapons and bombs in the Update() function
+
     this.Update();
   }
 
   Update() {
-    // TODO: Actually populate the fighter in here
-    let titleElement = this.shadowRoot.getElementById("fighter-number");
+    const titleElement = this.shadowRoot.getElementById("fighter-number");
     titleElement.textContent = `Fighter ${this.fighterNumber}:`;
 
+    /* -------- Fighter --------- */
+    const nameElement = this.shadowRoot.getElementById("name-input");
+    nameElement.value = this.fighter.name;
+    nameElement.addEventListener("change", () => {
+      this.fighter.name = nameElement.value;
+      this.DispatchChangeEvent();
+    });
+
+    const maxThrustElement = this.shadowRoot.getElementById("max-thrust-input");
+    maxThrustElement.valueAsNumber = this.fighter.maxThrust;
+
+    const safeThrustElement =
+      this.shadowRoot.getElementById("safe-thrust-input");
+    safeThrustElement.valueAsNumber = this.fighter.safeThrust;
+    safeThrustElement.addEventListener("change", () => {
+      this.fighter.safeThrust = safeThrustElement.valueAsNumber;
+      this.fighter.maxThrust = Math.ceil(this.fighter.safeThrust * 1.5);
+      maxThrustElement.valueAsNumber = this.fighter.maxThrust;
+
+      this.DispatchChangeEvent();
+    });
+
+    const heatSinksElement = this.shadowRoot.getElementById("heat-sinks-input");
+    heatSinksElement.valueAsNumber = this.fighter.heatSinks;
+    heatSinksElement.addEventListener("change", () => {
+      this.fighter.heatSinks = heatSinksElement.valueAsNumber;
+      this.DispatchChangeEvent();
+    });
+
+    const heatSinksTypeElement =
+      this.shadowRoot.getElementById("heat-sinks-select");
+    heatSinksTypeElement.value = this.fighter.heatSinkType;
+    heatSinksTypeElement.addEventListener("change", () => {
+      this.fighter.heatSinkType = heatSinksTypeElement.value;
+      this.DispatchChangeEvent();
+    });
+
+    const fuelElement = this.shadowRoot.getElementById("fuel-input");
+    fuelElement.valueAsNumber = this.fighter.fuel;
+    fuelElement.addEventListener("change", () => {
+      this.fighter.fuel = fuelElement.valueAsNumber;
+      this.DispatchChangeEvent();
+    });
+
+    this.weaponBayElement.ResetDataBindings(this.fighter);
+    this.bombBayElement.ResetDataBindings(this.fighter);
+
+    /* --------- Pilot ---------- */
+    const gunneryElement = this.shadowRoot.getElementById("gunnery-input");
+    gunneryElement.valueAsNumber = this.fighter.gunnery;
+    gunneryElement.addEventListener("change", () => {
+      this.fighter.gunnery = gunneryElement.valueAsNumber;
+      this.DispatchChangeEvent();
+    });
+
+    const pilotingElement = this.shadowRoot.getElementById("piloting-input");
+    pilotingElement.valueAsNumber = this.fighter.piloting;
+    pilotingElement.addEventListener("change", () => {
+      this.fighter.piloting = pilotingElement.valueAsNumber;
+      this.DispatchChangeEvent();
+    });
+
+    /* --------- Crits ---------- */
+    // TODO: Populate crits
+
+    /* ------ Armor and SI ------ */
     // Grab everything for pip creation
     this.damagePipTemplate = this.shadowRoot.getElementById(
       "damage-pip-template"
@@ -99,6 +218,7 @@ export class FighterRow extends TemplatedHtmlElement {
       );
 
       this.SetupPips(this.armorPipsContainer, this.fighter.totalArmor, true);
+      this.DispatchChangeEvent();
     });
 
     siInput.addEventListener("change", () => {
@@ -108,7 +228,22 @@ export class FighterRow extends TemplatedHtmlElement {
         this.fighter.structuralIntegrity,
         false
       );
+
+      this.DispatchChangeEvent();
     });
+  }
+
+  /**
+   * Toggles the copyPasteButton's text between Copy and Paste
+   */
+  ToggleCopyMode() {
+    if (this.isCopyMode) {
+      this.copyPasteButton.textContent = "Paste";
+    } else {
+      this.copyPasteButton.textContent = "Copy";
+    }
+
+    this.isCopyMode = !this.isCopyMode;
   }
 
   /**
@@ -150,6 +285,8 @@ export class FighterRow extends TemplatedHtmlElement {
           if (this.fighter.armorDamage === pip.value) {
             pip.clicked = true;
           }
+
+          this.DispatchChangeEvent();
         });
       } else {
         if (i <= this.fighter.structuralIntegrityDamage) {
@@ -170,6 +307,8 @@ export class FighterRow extends TemplatedHtmlElement {
           if (this.fighter.structuralIntegrityDamage === pip.value) {
             pip.clicked = true;
           }
+
+          this.DispatchChangeEvent();
         });
       }
 
@@ -178,9 +317,9 @@ export class FighterRow extends TemplatedHtmlElement {
   }
 
   /**
-   *
-   * @param {HTMLElement} container
-   * @param {number} damage
+   * Fill in the pips for damaged armor or SI
+   * @param {HTMLElement} container The container for the damage pip elements
+   * @param {number} damage The amount of damage to be displayed
    */
   FillPips(container, damage) {
     for (let pip of container.querySelectorAll(".damage-pip")) {
@@ -193,6 +332,36 @@ export class FighterRow extends TemplatedHtmlElement {
       }
     }
   }
+
+  /**
+   * Dispatch the change event with the current weapons bays
+   */
+  DispatchChangeEvent() {
+    const fighterChangeEvent = new CustomEvent("change", {
+      detail: this.fighter,
+    });
+    this.dispatchEvent(fighterChangeEvent);
+  }
+
+  /**
+   * Dispatch the copy event with the current weapons bays
+   */
+  DispatchCopyEvent() {
+    const fighterCopyEvent = new CustomEvent("copyfighter", {
+      detail: this.fighter,
+    });
+    this.dispatchEvent(fighterCopyEvent);
+  }
+
+  /**
+   * Dispatch the paste event with the current weapons bays
+   */
+  DispatchPasteEvent() {
+    const fighterPasteEvent = new CustomEvent("pastefighter", {
+      detail: this.fighterNumber,
+    });
+    this.dispatchEvent(fighterPasteEvent);
+  }
 }
 
-customElements.define("ap-fighter-row", FighterRow);
+customElements.define("ap-fighter-row", FighterRowElement);
