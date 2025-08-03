@@ -14,7 +14,10 @@ input {
 }
 
 #weapon-count,
-#heat,
+#heat {
+  width: 3.75em;
+}
+
 #attack-value {
   width: 3em;
 }
