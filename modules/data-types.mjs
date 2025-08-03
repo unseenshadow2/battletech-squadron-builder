@@ -248,8 +248,10 @@ export function AssignFighterDataDefaults(data) {
     ...data,
   };
 
-  for (const bay in data?.bays) {
-    fighter.bays.push(AssignFighterBayDefaults(bay));
+  const bays = Array.isArray(data?.bays) ? data.bays : [];
+
+  for (let i = 0; i < bays.length; i++) {
+    fighter.bays[i] = AssignFighterBayDefaults(bays[i]);
   }
 
   if (fighter.bays.length == 0) {
